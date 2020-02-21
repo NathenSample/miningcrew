@@ -1,0 +1,41 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE")
+    }
+}
+
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group 'MiningCrew'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.12.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.12.1'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.+'
+    compile group: 'com.google.http-client', name: 'google-http-client', version: '1.32.1'
+    compile group: 'com.google.http-client', name: 'google-http-client-jackson2', version: '1.32.1'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
