@@ -1,5 +1,6 @@
 package io.github.nathensample.miningcrew.registration.endpoint;
 
+import io.github.nathensample.miningcrew.configuration.RekkingCrewConfiguration;
 import io.github.nathensample.miningcrew.registration.model.AccessTokenResponse;
 import io.github.nathensample.miningcrew.registration.service.OAuthRegistrationService;
 import org.slf4j.Logger;
@@ -18,6 +19,10 @@ public class RegistrationController
      * SSO URL because i'm lazy
      * https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=http://localhost:8080/callback&client_id=9711369325f3444386c2b05936e319ec&scope=publicData esi-universe.read_structures.v1 esi-corporations.read_structures.v1 esi-industry.read_character_mining.v1 esi-industry.read_corporation_mining.v1
      */
+
+    @Autowired
+    private RekkingCrewConfiguration rekkingCrewConfiguration;
+
     private static Logger logger = LoggerFactory.getLogger(RegistrationController.class);
 
     @Autowired
@@ -26,7 +31,7 @@ public class RegistrationController
     @GetMapping("/callback")
     public ResponseEntity<String> initialCallback(@RequestParam String code)
     {
-        AccessTokenResponse accessTokenResponse = oAuthRegistrationService.exchangeAuthTokenForAccessToken(code);
+        AccessTokenResponse accessTokenResponse = oAuthRegistrationService.exchangeAuthTokenForAccessToken(code, rekkingCrewConfiguration.getClientId(), rekkingCrewConfiguration.getClientSecret());
         return new ResponseEntity<>(accessTokenResponse.getRefreshToken(), HttpStatus.OK);
     }
 }

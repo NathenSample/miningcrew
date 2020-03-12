@@ -4,8 +4,8 @@ import com.google.api.client.util.Key;
 
 public class AuthTokenExchange
 {
-    @Key("grant_type")
-    private static final String GRANT_TYPE = "authorization_code";
+    @Key
+    private final String grant_type = "authorization_code";
     @Key
     private final String code;
 
